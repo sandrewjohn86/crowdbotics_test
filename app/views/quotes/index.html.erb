@@ -1,0 +1,62 @@
+<div id="main-container">
+  <div class= "quote-page">
+    
+  </div>
+  <button id="new-quote">Get Quote</button>
+  <button id="clear-quote">Clear Quote</button>
+  
+  
+  <div id="footer">
+    <a href="#">Crowdbotics Technical Test</a>
+  </div>
+
+  <script type="text/javascript">
+  		var t = 0;
+	  	$.getJSON("https://talaikis.com/api/quotes/", callbackFuncWithData);
+
+		  function callbackFuncWithData(json) {
+		      var html = "";
+		      var title = "";
+		      var content = "";
+		      var num = Math.floor((Math.random() * json.length));
+
+
+		      title = json[num]["author"];
+		      content = json[num]["quote"];
+
+		      html += "<div class='quote'>"+ content +"</div>";
+		      html += "<div class='author'>"+ "__By " + title +"</div>";
+		    
+		      $(".quote-page").html(html);
+		  };
+
+
+	//On click
+	$("#new-quote").on("click", function() {
+		t++;
+		if( t <= 10){
+			$.getJSON("https://talaikis.com/api/quotes/", function(json) {
+		        var html = "";
+		        var title = "";
+		        var content = "";
+		        var num = Math.floor((Math.random() * json.length));
+		        
+		        title = json[num]["author"];
+		        content = json[num]["quote"];
+		        
+		        html += "<div class='quote'>"+ content +"</div>";
+		        html += "<div class='author'>"+ "__By " + title +"</div>";
+
+		        $(".quote-page").append(html);
+	    	});
+		}
+	    
+	});
+
+	$("#clear-quote").on("click", function() {
+
+		$(".quote-page").html("");
+	});
+
+  </script>
+</div>
